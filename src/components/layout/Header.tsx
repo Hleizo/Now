@@ -1,75 +1,144 @@
 "use client";
 
 import React, { useState } from "react";
-import { SearchIcon, CartIcon, MenuIcon } from "@/components/icons/Icons";
+import { SearchIcon, CartIcon, HeartIcon, UserIcon, MapPinIcon } from "@/components/icons/Icons";
 
 export function Header() {
   const [searchFocused, setSearchFocused] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-slate-100 safe-top">
-      {/* Top Bar - Logo and Icons */}
-      <div className="flex items-center justify-between px-4 py-3">
-        {/* Logo */}
-        <a href="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center">
-            <span className="text-white font-bold text-xl">N</span>
-          </div>
-          <span className="text-xl font-bold text-slate-900 hidden sm:block">Now</span>
-        </a>
-
-        {/* Desktop Search Bar */}
-        <div className="hidden md:flex flex-1 max-w-xl mx-8">
-          <div className="relative w-full">
-            <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-            <input
-              type="search"
-              placeholder="Search for products, brands..."
-              className="w-full pl-12 pr-4 py-3 bg-slate-50 rounded-xl border border-transparent focus:border-primary-500 focus:bg-white focus:outline-none transition-all"
-              aria-label="Search products"
-            />
+    <header className="sticky top-0 z-50 bg-white shadow-sm safe-top">
+      {/* Desktop Header */}
+      <div className="hidden md:block">
+        {/* Top Bar */}
+        <div className="bg-slate-900 text-white py-2">
+          <div className="max-w-7xl mx-auto px-4 flex items-center justify-between text-sm">
+            <div className="flex items-center gap-2">
+              <MapPinIcon className="w-4 h-4 text-primary-400" />
+              <span className="text-slate-300">Deliver to:</span>
+              <button className="font-medium hover:text-primary-400 transition-colors">
+                Dubai, UAE
+              </button>
+            </div>
+            <div className="flex items-center gap-6">
+              <a href="/track" className="hover:text-primary-400 transition-colors">Track Order</a>
+              <a href="/help" className="hover:text-primary-400 transition-colors">Help</a>
+              <a href="/sell" className="hover:text-primary-400 transition-colors">Sell on Now</a>
+            </div>
           </div>
         </div>
 
-        {/* Right Icons */}
-        <div className="flex items-center gap-2">
-          {/* Mobile Menu */}
-          <button
-            className="md:hidden p-2 rounded-xl hover:bg-slate-100 active:bg-slate-200 transition-colors touch-target"
-            aria-label="Menu"
-          >
-            <MenuIcon className="w-6 h-6 text-slate-700" />
-          </button>
+        {/* Main Header */}
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center gap-8">
+          {/* Logo */}
+          <a href="/" className="flex items-center gap-2 flex-shrink-0">
+            <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg shadow-primary-500/30">
+              <span className="text-white font-extrabold text-2xl">N</span>
+            </div>
+            <span className="text-2xl font-extrabold text-slate-900">Now</span>
+          </a>
 
-          {/* Cart */}
-          <button
-            className="relative p-2 rounded-xl hover:bg-slate-100 active:bg-slate-200 transition-colors touch-target"
-            aria-label="Shopping cart, 3 items"
-          >
-            <CartIcon className="w-6 h-6 text-slate-700" />
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
-              3
-            </span>
-          </button>
+          {/* Search Bar */}
+          <div className="flex-1 max-w-2xl">
+            <div className="relative">
+              <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+              <input
+                type="search"
+                placeholder="Search for products, brands, categories..."
+                className="w-full pl-12 pr-32 py-3.5 bg-slate-100 rounded-2xl border-2 border-transparent focus:border-primary-500 focus:bg-white focus:outline-none transition-all text-base"
+                aria-label="Search products"
+              />
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-xl font-semibold transition-colors">
+                Search
+              </button>
+            </div>
+          </div>
+
+          {/* Right Icons */}
+          <div className="flex items-center gap-1">
+            <a
+              href="/account"
+              className="flex flex-col items-center p-3 rounded-xl hover:bg-slate-100 transition-colors"
+            >
+              <UserIcon className="w-6 h-6 text-slate-700" />
+              <span className="text-xs text-slate-600 mt-1">Account</span>
+            </a>
+            <a
+              href="/wishlist"
+              className="flex flex-col items-center p-3 rounded-xl hover:bg-slate-100 transition-colors relative"
+            >
+              <HeartIcon className="w-6 h-6 text-slate-700" />
+              <span className="text-xs text-slate-600 mt-1">Wishlist</span>
+              <span className="absolute top-1 right-1 w-5 h-5 bg-primary-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                5
+              </span>
+            </a>
+            <a
+              href="/cart"
+              className="flex flex-col items-center p-3 rounded-xl hover:bg-slate-100 transition-colors relative"
+            >
+              <CartIcon className="w-6 h-6 text-slate-700" />
+              <span className="text-xs text-slate-600 mt-1">Cart</span>
+              <span className="absolute top-1 right-1 w-5 h-5 bg-primary-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                3
+              </span>
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Search Bar */}
-      <div className="md:hidden px-4 pb-3">
-        <div
-          className={`relative transition-all duration-200 ${
-            searchFocused ? "transform scale-[1.02]" : ""
-          }`}
-        >
-          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-          <input
-            type="search"
-            placeholder="Search for products, brands..."
-            className="w-full pl-12 pr-4 py-3 bg-slate-50 rounded-xl border border-transparent focus:border-primary-500 focus:bg-white focus:outline-none transition-all text-base"
-            aria-label="Search products"
-            onFocus={() => setSearchFocused(true)}
-            onBlur={() => setSearchFocused(false)}
-          />
+      {/* Mobile Header */}
+      <div className="md:hidden">
+        {/* Top Row - Logo, Location, Icons */}
+        <div className="flex items-center justify-between px-4 py-3">
+          {/* Logo */}
+          <a href="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-md shadow-primary-500/20">
+              <span className="text-white font-extrabold text-xl">N</span>
+            </div>
+            <span className="text-xl font-extrabold text-slate-900">Now</span>
+          </a>
+
+          {/* Location */}
+          <button className="flex items-center gap-1 text-sm">
+            <MapPinIcon className="w-4 h-4 text-primary-500" />
+            <span className="text-slate-600 max-w-[80px] truncate">Dubai</span>
+          </button>
+
+          {/* Icons */}
+          <div className="flex items-center gap-1">
+            <a href="/wishlist" className="relative p-2 rounded-xl active:bg-slate-100 touch-target">
+              <HeartIcon className="w-6 h-6 text-slate-700" />
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                5
+              </span>
+            </a>
+            <a href="/cart" className="relative p-2 rounded-xl active:bg-slate-100 touch-target">
+              <CartIcon className="w-6 h-6 text-slate-700" />
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                3
+              </span>
+            </a>
+          </div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="px-4 pb-3">
+          <div
+            className={`relative transition-all duration-200 ${
+              searchFocused ? "transform scale-[1.01]" : ""
+            }`}
+          >
+            <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <input
+              type="search"
+              placeholder="Search products, brands..."
+              className="w-full pl-12 pr-4 py-3 bg-slate-100 rounded-xl border-2 border-transparent focus:border-primary-500 focus:bg-white focus:outline-none transition-all text-base"
+              aria-label="Search products"
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => setSearchFocused(false)}
+            />
+          </div>
         </div>
       </div>
     </header>
