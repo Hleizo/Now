@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/icons/Icons";
 
@@ -76,6 +76,7 @@ const quickCategories: QuickCategory[] = [
 
 export function QuickCategories() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [imageLoaded, setImageLoaded] = useState<Record<string, boolean>>({});
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -88,21 +89,21 @@ export function QuickCategories() {
   };
 
   return (
-    <section className="py-6 sm:py-8 bg-white" aria-label="Quick category shortcuts">
+    <section className="py-4 sm:py-6 lg:py-8 bg-white" aria-label="Quick category shortcuts">
       <div className="max-w-7xl mx-auto">
-        <div className="px-4 sm:px-6 mb-4 flex items-center justify-between">
-          <h2 className="text-lg sm:text-xl font-bold text-navy-500">Shop by Category</h2>
+        <div className="px-3 sm:px-6 mb-3 sm:mb-4 flex items-center justify-between">
+          <h2 className="text-base sm:text-lg lg:text-xl font-bold text-navy-500">Shop by Category</h2>
           <div className="hidden md:flex items-center gap-2">
             <button
               onClick={() => scroll("left")}
-              className="w-9 h-9 bg-surface hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors border border-border"
+              className="w-9 h-9 bg-surface hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors border border-border btn-press"
               aria-label="Scroll left"
             >
               <ChevronLeftIcon className="w-5 h-5 text-text-secondary" />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="w-9 h-9 bg-surface hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors border border-border"
+              className="w-9 h-9 bg-surface hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors border border-border btn-press"
               aria-label="Scroll right"
             >
               <ChevronRightIcon className="w-5 h-5 text-text-secondary" />
@@ -112,28 +113,38 @@ export function QuickCategories() {
 
         <div
           ref={scrollRef}
-          className="flex gap-4 sm:gap-6 px-4 sm:px-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2"
+          className="flex gap-3 sm:gap-4 lg:gap-6 px-3 sm:px-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 smooth-scroll"
+          style={{ WebkitOverflowScrolling: 'touch' }}
         >
           {quickCategories.map((category) => (
             <a
               key={category.id}
               href={category.href}
-              className="flex-shrink-0 snap-start flex flex-col items-center gap-2 group"
+              className="flex-shrink-0 snap-start flex flex-col items-center gap-1.5 sm:gap-2 group tap-feedback"
             >
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-2 ring-border group-hover:ring-action-500 group-hover:ring-4 transition-all shadow-sm group-active:scale-95">
+              {/* Image with loading state */}
+              <div className={`relative w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full overflow-hidden ring-2 ring-border group-hover:ring-action-500 group-hover:ring-4 transition-all shadow-sm ${
+                !imageLoaded[category.id] ? 'bg-surface' : ''
+              }`}>
                 <Image
                   src={category.image}
                   alt={category.name}
                   fill
                   sizes="80px"
-                  className="object-cover"
+                  className={`object-cover transition-opacity duration-300 ${
+                    imageLoaded[category.id] ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  onLoad={() => setImageLoaded(prev => ({ ...prev, [category.id]: true }))}
+                  loading="lazy"
                 />
               </div>
-              <span className="text-xs sm:text-sm font-medium text-text-primary group-hover:text-action-500 transition-colors text-center whitespace-nowrap">
+              <span className="text-[11px] sm:text-xs lg:text-sm font-medium text-text-primary group-hover:text-action-500 transition-colors text-center whitespace-nowrap">
                 {category.name}
               </span>
             </a>
           ))}
+          {/* End padding for smooth scroll */}
+          <div className="w-3 flex-shrink-0" aria-hidden="true" />
         </div>
       </div>
     </section>

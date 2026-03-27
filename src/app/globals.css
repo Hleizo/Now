@@ -26,6 +26,8 @@
 html {
   scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
+  /* Prevent text size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -34,12 +36,19 @@ body {
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent overscroll bounce on iOS */
+  overscroll-behavior-y: contain;
+  /* Minimum font size for readability */
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-/* Hide scrollbar for horizontal scroll sections on mobile */
+/* Hide scrollbar for horizontal scroll sections */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  /* Smooth momentum scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -55,10 +64,18 @@ body {
   scroll-snap-align: start;
 }
 
-/* Touch-friendly tap targets */
+/* Touch-friendly tap targets - minimum 44px */
 .touch-target {
   min-height: 44px;
   min-width: 44px;
+}
+
+/* Larger touch target for mobile */
+@media (max-width: 640px) {
+  .touch-target-mobile {
+    min-height: 48px;
+    min-width: 48px;
+  }
 }
 
 /* Smooth transitions */
@@ -69,24 +86,54 @@ body {
 /* Safe area padding for mobile notches */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .safe-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem);
+  }
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
   }
 }
 
-/* Active state for touch devices */
-@media (hover: none) {
-  .active\:scale-95:active {
-    transform: scale(0.95);
+/* Active/tap feedback for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .tap-feedback:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+  }
+  
+  .tap-highlight:active {
+    background-color: rgba(0, 0, 0, 0.05);
   }
 }
 
-/* Product card hover effect */
+/* Hover effects only on devices that support hover */
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* Product card with proper mobile handling */
 .product-card {
-  @apply transition-all duration-200;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
 }
 
-.product-card:hover {
-  @apply shadow-card-hover -translate-y-1;
+@media (hover: hover) {
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (hover: none) {
+  .product-card:active {
+    transform: scale(0.98);
+  }
 }
 
 /* Deal badge pulse */
@@ -107,8 +154,8 @@ body {
 .banner-gradient {
   background: linear-gradient(
     to right,
-    rgba(11, 31, 59, 0.85) 0%,
-    rgba(11, 31, 59, 0.5) 50%,
+    rgba(11, 31, 59, 0.9) 0%,
+    rgba(11, 31, 59, 0.6) 40%,
     rgba(11, 31, 59, 0) 100%
   );
 }
@@ -134,10 +181,76 @@ body {
   animation: shimmer 1.5s infinite;
 }
 
+/* Aspect ratio containers to prevent layout shift */
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-banner {
+  aspect-ratio: 2 / 1;
+}
+
+@media (max-width: 640px) {
+  .aspect-banner-mobile {
+    aspect-ratio: 16 / 9;
+  }
+}
+
 /* Focus styles for accessibility */
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
   outline: 2px solid var(--action);
   outline-offset: 2px;
+}
+
+/* Image loading placeholder */
+.img-loading {
+  background-color: var(--surface);
+}
+
+/* Prevent content from being cut off on very small screens */
+@media (max-width: 359px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* Text truncation utilities */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth scroll container */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Button press effect */
+.btn-press:active {
+  transform: scale(0.96);
+}
+
+/* Card shadows optimized for mobile */
+.shadow-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-card-hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
 }

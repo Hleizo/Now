@@ -30,16 +30,16 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-navy-500 text-white mt-8 pb-24 md:pb-8">
+    <footer className="bg-navy-500 text-white mt-6 sm:mt-8 pb-20 md:pb-8">
       {/* Newsletter Section - Blue accent */}
       <div className="bg-action-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-6 sm:py-10 lg:py-12">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 sm:gap-6">
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1 sm:mb-2">
                 Get exclusive offers & updates
               </h3>
-              <p className="text-white/90 text-sm sm:text-base">
+              <p className="text-white/90 text-xs sm:text-sm lg:text-base">
                 Subscribe to our newsletter and never miss a deal!
               </p>
             </div>
@@ -47,9 +47,10 @@ export function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 md:w-72 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/20"
+                className="flex-1 md:w-64 lg:w-72 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/20 text-sm sm:text-base"
+                aria-label="Email address for newsletter"
               />
-              <button className="px-6 py-3 bg-white text-action-500 font-semibold rounded-xl hover:bg-gray-100 transition-colors">
+              <button className="px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-action-500 font-semibold rounded-lg sm:rounded-xl hover:bg-gray-100 transition-colors btn-press text-sm sm:text-base whitespace-nowrap">
                 Subscribe
               </button>
             </div>
@@ -58,41 +59,41 @@ export function Footer() {
       </div>
 
       {/* Main Footer - Navy background */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-8 sm:py-12">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8">
           {/* Brand Column */}
           <div className="col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center">
-                <span className="text-navy-500 font-extrabold text-2xl">N</span>
+            <div className="flex items-center gap-2 mb-3 sm:mb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-xl sm:rounded-2xl flex items-center justify-center">
+                <span className="text-navy-500 font-extrabold text-xl sm:text-2xl">N</span>
               </div>
-              <span className="text-2xl font-extrabold">Now</span>
+              <span className="text-xl sm:text-2xl font-extrabold">Now</span>
             </div>
-            <p className="text-gray-300 text-sm mb-6 max-w-xs">
-              Jordan's marketplace for smart shoppers. Quality products, great prices, delivered fast to your door.
+            <p className="text-gray-300 text-xs sm:text-sm mb-4 sm:mb-6 max-w-xs leading-relaxed">
+              Jordan&apos;s marketplace for smart shoppers. Quality products, great prices, delivered fast to your door.
             </p>
             
-            {/* App Download Buttons */}
-            <p className="text-sm font-semibold text-gray-200 mb-3">Download Our App</p>
-            <div className="flex gap-2">
+            {/* App Download Buttons - Stacked on very small screens */}
+            <p className="text-xs sm:text-sm font-semibold text-gray-200 mb-2 sm:mb-3">Download Our App</p>
+            <div className="flex flex-col xs:flex-row gap-2">
               <a
                 href="#"
-                className="flex items-center gap-2 bg-navy-600 hover:bg-navy-400 px-4 py-2.5 rounded-xl transition-colors border border-navy-400"
+                className="flex items-center gap-2 bg-navy-600 hover:bg-navy-400 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl transition-colors border border-navy-400 tap-feedback"
               >
-                <span className="text-2xl">🍎</span>
+                <span className="text-xl sm:text-2xl">🍎</span>
                 <div className="text-left">
-                  <p className="text-[10px] text-gray-400">Download on</p>
-                  <p className="text-sm font-semibold">App Store</p>
+                  <p className="text-[9px] sm:text-[10px] text-gray-400">Download on</p>
+                  <p className="text-xs sm:text-sm font-semibold">App Store</p>
                 </div>
               </a>
               <a
                 href="#"
-                className="flex items-center gap-2 bg-navy-600 hover:bg-navy-400 px-4 py-2.5 rounded-xl transition-colors border border-navy-400"
+                className="flex items-center gap-2 bg-navy-600 hover:bg-navy-400 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl transition-colors border border-navy-400 tap-feedback"
               >
-                <span className="text-2xl">▶️</span>
+                <span className="text-xl sm:text-2xl">▶️</span>
                 <div className="text-left">
-                  <p className="text-[10px] text-gray-400">Get it on</p>
-                  <p className="text-sm font-semibold">Google Play</p>
+                  <p className="text-[9px] sm:text-[10px] text-gray-400">Get it on</p>
+                  <p className="text-xs sm:text-sm font-semibold">Google Play</p>
                 </div>
               </a>
             </div>
@@ -100,13 +101,13 @@ export function Footer() {
 
           {/* Shop Links */}
           <div>
-            <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-200">Shop</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider text-gray-200">Shop</h3>
+            <ul className="space-y-2 sm:space-y-3">
               {footerLinks.shop.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-white text-sm transition-colors"
+                    className="text-gray-400 hover:text-white text-xs sm:text-sm transition-colors tap-highlight block py-0.5"
                   >
                     {link.label}
                   </a>
@@ -117,13 +118,13 @@ export function Footer() {
 
           {/* Support Links */}
           <div>
-            <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-200">Support</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider text-gray-200">Support</h3>
+            <ul className="space-y-2 sm:space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-white text-sm transition-colors"
+                    className="text-gray-400 hover:text-white text-xs sm:text-sm transition-colors tap-highlight block py-0.5"
                   >
                     {link.label}
                   </a>
@@ -134,13 +135,13 @@ export function Footer() {
 
           {/* Company Links */}
           <div>
-            <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-200">Company</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider text-gray-200">Company</h3>
+            <ul className="space-y-2 sm:space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-white text-sm transition-colors"
+                    className="text-gray-400 hover:text-white text-xs sm:text-sm transition-colors tap-highlight block py-0.5"
                   >
                     {link.label}
                   </a>
@@ -151,20 +152,20 @@ export function Footer() {
         </div>
 
         {/* Social Links */}
-        <div className="mt-12 pt-8 border-t border-navy-400 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-navy-400 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
-                className="w-10 h-10 bg-navy-600 hover:bg-action-500 rounded-full flex items-center justify-center transition-colors"
+                className="w-9 h-9 sm:w-10 sm:h-10 bg-navy-600 hover:bg-action-500 rounded-full flex items-center justify-center transition-colors tap-feedback"
                 aria-label={social.label}
               >
-                <span className="text-lg">{social.icon}</span>
+                <span className="text-base sm:text-lg">{social.icon}</span>
               </a>
             ))}
           </div>
-          <p className="text-gray-400 text-sm text-center">
+          <p className="text-gray-400 text-xs sm:text-sm text-center">
             © 2024 Now. All rights reserved. Made with ❤️ in Jordan
           </p>
         </div>
@@ -172,9 +173,9 @@ export function Footer() {
 
       {/* Payment Methods */}
       <div className="border-t border-navy-400">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-center gap-4">
-          <span className="text-gray-400 text-sm">We accept:</span>
-          <div className="flex items-center gap-3 text-2xl">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4">
+          <span className="text-gray-400 text-xs sm:text-sm">We accept:</span>
+          <div className="flex items-center gap-2 sm:gap-3 text-xl sm:text-2xl">
             <span title="Visa">💳</span>
             <span title="Mastercard">💳</span>
             <span title="PayPal">💰</span>

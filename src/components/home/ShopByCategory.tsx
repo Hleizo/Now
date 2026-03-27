@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import { ChevronRightIcon } from "@/components/icons/Icons";
 
@@ -63,38 +65,48 @@ const shopCategories: ShopCategory[] = [
 ];
 
 export function ShopByCategory() {
+  const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
+
   return (
-    <section className="py-6 sm:py-8 bg-surface" aria-label="Shop by category">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl sm:text-2xl font-bold text-navy-500">Shop by Category</h2>
+    <section className="py-4 sm:py-6 lg:py-8 bg-surface" aria-label="Shop by category">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6">
+        <div className="mb-3 sm:mb-4 lg:mb-6 flex items-center justify-between">
+          <h2 className="text-base sm:text-xl lg:text-2xl font-bold text-navy-500">Shop by Category</h2>
           <a
             href="/categories"
-            className="flex items-center gap-1 text-sm font-semibold text-action-500 hover:text-action-600 transition-colors group"
+            className="flex items-center gap-0.5 sm:gap-1 text-xs sm:text-sm font-semibold text-action-500 hover:text-action-600 transition-colors tap-feedback px-1 py-1"
           >
             View All
-            <ChevronRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ChevronRightIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </a>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 lg:gap-4">
           {shopCategories.map((category) => (
             <a
               key={category.id}
               href={category.href}
-              className="group relative h-40 sm:h-48 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all"
+              className="group relative aspect-[4/5] sm:h-44 lg:h-48 rounded-xl sm:rounded-2xl overflow-hidden shadow-card tap-feedback"
             >
+              {/* Loading skeleton */}
+              {!imagesLoaded[category.id] && (
+                <div className="absolute inset-0 skeleton" />
+              )}
               <Image
                 src={category.image}
                 alt={category.name}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
-                className="object-cover group-hover:scale-110 transition-transform duration-500"
+                className={`object-cover transition-all duration-500 ${
+                  imagesLoaded[category.id] ? 'opacity-100' : 'opacity-0'
+                } group-hover:scale-110`}
+                onLoad={() => setImagesLoaded(prev => ({ ...prev, [category.id]: true }))}
+                loading="lazy"
               />
               <div className={`absolute inset-0 bg-gradient-to-t ${category.color} opacity-70 group-hover:opacity-80 transition-opacity`} />
-              <div className="absolute inset-0 flex flex-col justify-end p-4">
-                <h3 className="text-white font-bold text-base sm:text-lg">{category.name}</h3>
-                <p className="text-white/80 text-xs sm:text-sm">{category.tagline}</p>
+              <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4">
+                <h3 className="text-white font-bold text-sm sm:text-base lg:text-lg leading-tight">{category.name}</h3>
+                <p className="text-white/80 text-[10px] sm:text-xs lg:text-sm">{category.tagline}</p>
               </div>
             </a>
           ))}

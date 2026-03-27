@@ -16,25 +16,25 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] touch-target disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 btn-press disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-action-500 focus-visible:outline-offset-2";
 
   const variants = {
     // Blue action button - main CTA
-    primary: "bg-action-500 text-white hover:bg-action-600 active:bg-action-700 shadow-sm",
+    primary: "bg-action-500 text-white hover:bg-action-600 shadow-sm",
     // Navy secondary button - trust/serious actions
-    secondary: "bg-navy-500 text-white hover:bg-navy-600 active:bg-navy-700 shadow-sm",
+    secondary: "bg-navy-500 text-white hover:bg-navy-600 shadow-sm",
     // Outline with blue border
-    outline: "border-2 border-action-500 text-action-500 hover:bg-action-50 active:bg-action-100",
+    outline: "border-2 border-action-500 text-action-500 hover:bg-action-50",
     // Ghost button
-    ghost: "text-text-primary hover:bg-gray-100 active:bg-gray-200",
+    ghost: "text-text-primary hover:bg-gray-100",
     // Deal/promo button with amber
-    deal: "bg-deal-500 text-text-primary hover:bg-deal-600 active:bg-deal-700 font-bold shadow-sm",
+    deal: "bg-deal-500 text-text-primary hover:bg-deal-600 font-bold shadow-sm",
   };
 
   const sizes = {
-    sm: "px-3 py-2 text-sm min-h-[36px]",
-    md: "px-5 py-2.5 text-base min-h-[44px]",
-    lg: "px-6 py-3 text-lg min-h-[52px]",
+    sm: "px-3 py-2 text-xs sm:text-sm min-h-[36px] sm:min-h-[40px]",
+    md: "px-4 sm:px-5 py-2.5 text-sm sm:text-base min-h-[42px] sm:min-h-[44px]",
+    lg: "px-5 sm:px-6 py-3 text-base sm:text-lg min-h-[48px] sm:min-h-[52px]",
   };
 
   return (

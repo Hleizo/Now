@@ -43,26 +43,29 @@ export function CategoriesNav() {
         </div>
       </div>
 
-      {/* Mobile View - Horizontal Scroll */}
+      {/* Mobile View - Smooth horizontal scroll with proper spacing */}
       <div className="md:hidden">
         <div
           ref={scrollRef}
-          className="flex items-center gap-2 px-4 py-3 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+          className="flex items-center gap-2 px-3 py-2.5 overflow-x-auto scrollbar-hide snap-x snap-mandatory smooth-scroll"
+          style={{ WebkitOverflowScrolling: 'touch' }}
         >
           {navCategories.map((cat) => (
             <a
               key={cat.id}
               href={cat.href}
-              className={`flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+              className={`flex-shrink-0 snap-start px-3.5 py-2 rounded-full text-[13px] font-medium transition-all whitespace-nowrap tap-feedback ${
                 cat.highlight
-                  ? "bg-deal-500 text-text-primary active:bg-deal-600 font-bold"
-                  : "bg-surface text-text-primary active:bg-gray-200"
+                  ? "bg-deal-500 text-text-primary font-bold shadow-sm"
+                  : "bg-surface text-text-primary border border-border"
               }`}
             >
-              {cat.highlight && <TagIcon className="w-3.5 h-3.5 inline mr-1 -mt-0.5" />}
+              {cat.highlight && <TagIcon className="w-3 h-3 inline mr-1 -mt-0.5" />}
               {cat.name}
             </a>
           ))}
+          {/* Extra padding at end for smooth scroll */}
+          <div className="w-3 flex-shrink-0" aria-hidden="true" />
         </div>
       </div>
     </nav>
