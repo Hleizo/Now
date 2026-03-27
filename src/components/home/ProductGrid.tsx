@@ -26,16 +26,16 @@ export function ProductGrid({
       <div className="px-4 sm:px-6 mb-4 sm:mb-6 flex items-center justify-between max-w-7xl mx-auto">
         <div className="flex items-center gap-3">
           {isDeal && (
-            <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-lg animate-pulse">
+            <span className="bg-deal-500 text-text-primary text-xs font-bold px-2 py-1 rounded-lg animate-pulse-deal">
               🔥 SALE
             </span>
           )}
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900">{title}</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-navy-500">{title}</h2>
         </div>
         {viewAllHref && (
           <a
             href={viewAllHref}
-            className="flex items-center gap-1 text-sm font-semibold text-primary-500 hover:text-primary-600 transition-colors group"
+            className="flex items-center gap-1 text-sm font-semibold text-action-500 hover:text-action-600 transition-colors group"
           >
             View All
             <ChevronRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

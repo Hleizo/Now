@@ -20,7 +20,7 @@ const dealProducts = products.filter(p => p.discount).map(p => ({
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-surface">
       {/* Sticky Header */}
       <Header />
 
@@ -36,14 +36,16 @@ export default function HomePage() {
         <QuickCategories />
 
         {/* Popular Products */}
-        <ProductGrid
-          products={products}
-          title="Popular Products"
-          viewAllHref="/products"
-        />
+        <div className="bg-white">
+          <ProductGrid
+            products={products}
+            title="Popular Products"
+            viewAllHref="/products"
+          />
+        </div>
 
-        {/* Best Deals Section */}
-        <div className="bg-gradient-to-r from-red-50 to-orange-50">
+        {/* Best Deals Section - Amber accent background */}
+        <div className="bg-gradient-to-r from-deal-50 to-amber-50 border-y border-deal-200">
           <ProductGrid
             products={dealProducts}
             title="Best Deals"
@@ -56,36 +58,38 @@ export default function HomePage() {
         <ShopByCategory />
 
         {/* More Products / Recommended */}
-        <ProductGrid
-          products={moreProducts}
-          title="Recommended for You"
-          viewAllHref="/recommended"
-          columns="scrollable"
-        />
+        <div className="bg-white">
+          <ProductGrid
+            products={moreProducts}
+            title="Recommended for You"
+            viewAllHref="/recommended"
+            columns="scrollable"
+          />
+        </div>
 
         {/* Trust Badges Section */}
-        <section className="py-8 px-4 sm:px-6 bg-slate-50">
+        <section className="py-8 px-4 sm:px-6 bg-surface">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="flex flex-col items-center text-center p-5 bg-white rounded-2xl shadow-sm">
+              <div className="flex flex-col items-center text-center p-5 bg-card rounded-2xl shadow-card border border-border">
                 <span className="text-4xl mb-3">🚚</span>
-                <h3 className="font-bold text-sm text-slate-900">Free Delivery</h3>
-                <p className="text-xs text-slate-500 mt-1">On orders over $50</p>
+                <h3 className="font-bold text-sm text-navy-500">Free Delivery</h3>
+                <p className="text-xs text-text-secondary mt-1">On orders over 20 JOD</p>
               </div>
-              <div className="flex flex-col items-center text-center p-5 bg-white rounded-2xl shadow-sm">
+              <div className="flex flex-col items-center text-center p-5 bg-card rounded-2xl shadow-card border border-border">
                 <span className="text-4xl mb-3">↩️</span>
-                <h3 className="font-bold text-sm text-slate-900">Easy Returns</h3>
-                <p className="text-xs text-slate-500 mt-1">30-day return policy</p>
+                <h3 className="font-bold text-sm text-navy-500">Easy Returns</h3>
+                <p className="text-xs text-text-secondary mt-1">30-day return policy</p>
               </div>
-              <div className="flex flex-col items-center text-center p-5 bg-white rounded-2xl shadow-sm">
+              <div className="flex flex-col items-center text-center p-5 bg-card rounded-2xl shadow-card border border-border">
                 <span className="text-4xl mb-3">🔒</span>
-                <h3 className="font-bold text-sm text-slate-900">Secure Payment</h3>
-                <p className="text-xs text-slate-500 mt-1">100% secure checkout</p>
+                <h3 className="font-bold text-sm text-navy-500">Secure Payment</h3>
+                <p className="text-xs text-text-secondary mt-1">100% secure checkout</p>
               </div>
-              <div className="flex flex-col items-center text-center p-5 bg-white rounded-2xl shadow-sm">
+              <div className="flex flex-col items-center text-center p-5 bg-card rounded-2xl shadow-card border border-border">
                 <span className="text-4xl mb-3">💬</span>
-                <h3 className="font-bold text-sm text-slate-900">24/7 Support</h3>
-                <p className="text-xs text-slate-500 mt-1">Here to help always</p>
+                <h3 className="font-bold text-sm text-navy-500">24/7 Support</h3>
+                <p className="text-xs text-text-secondary mt-1">Here to help always</p>
               </div>
             </div>
           </div>

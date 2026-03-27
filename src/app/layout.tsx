@@ -2,21 +2,21 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Now - Shop Smarter, Live Better",
-  description: "Your one-stop destination for electronics, fashion, home goods, and more. Fast delivery, great prices, and amazing deals every day.",
-  keywords: ["ecommerce", "online shopping", "electronics", "fashion", "deals", "free delivery"],
+  title: "Now - Jordan's Smart Marketplace",
+  description: "Shop smarter with Now. Jordan's trusted marketplace for electronics, fashion, home goods, and more. Fast delivery, great prices, amazing deals.",
+  keywords: ["ecommerce", "online shopping", "Jordan", "marketplace", "electronics", "fashion", "deals", "free delivery"],
   authors: [{ name: "Now" }],
   openGraph: {
-    title: "Now - Shop Smarter, Live Better",
-    description: "Your one-stop destination for electronics, fashion, home goods, and more.",
+    title: "Now - Jordan's Smart Marketplace",
+    description: "Shop smarter with Now. Jordan's trusted marketplace for everything you need.",
     type: "website",
     locale: "en_US",
     siteName: "Now",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Now - Shop Smarter, Live Better",
-    description: "Your one-stop destination for electronics, fashion, home goods, and more.",
+    title: "Now - Jordan's Smart Marketplace",
+    description: "Shop smarter with Now. Jordan's trusted marketplace for everything you need.",
   },
   robots: {
     index: true,
@@ -28,7 +28,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#FF6B35",
+  themeColor: "#0B1F3B",
 };
 
 export default function RootLayout({
@@ -46,7 +46,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
-      <body className="antialiased min-h-screen bg-white">
+      <body className="antialiased min-h-screen bg-surface text-text-primary">
         {children}
       </body>
     </html>

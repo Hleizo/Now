@@ -88,24 +88,24 @@ export function QuickCategories() {
   };
 
   return (
-    <section className="py-6 sm:py-8" aria-label="Quick category shortcuts">
+    <section className="py-6 sm:py-8 bg-white" aria-label="Quick category shortcuts">
       <div className="max-w-7xl mx-auto">
         <div className="px-4 sm:px-6 mb-4 flex items-center justify-between">
-          <h2 className="text-lg sm:text-xl font-bold text-slate-900">Shop by Category</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-navy-500">Shop by Category</h2>
           <div className="hidden md:flex items-center gap-2">
             <button
               onClick={() => scroll("left")}
-              className="w-9 h-9 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center transition-colors"
+              className="w-9 h-9 bg-surface hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors border border-border"
               aria-label="Scroll left"
             >
-              <ChevronLeftIcon className="w-5 h-5 text-slate-600" />
+              <ChevronLeftIcon className="w-5 h-5 text-text-secondary" />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="w-9 h-9 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center transition-colors"
+              className="w-9 h-9 bg-surface hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors border border-border"
               aria-label="Scroll right"
             >
-              <ChevronRightIcon className="w-5 h-5 text-slate-600" />
+              <ChevronRightIcon className="w-5 h-5 text-text-secondary" />
             </button>
           </div>
         </div>
@@ -120,7 +120,7 @@ export function QuickCategories() {
               href={category.href}
               className="flex-shrink-0 snap-start flex flex-col items-center gap-2 group"
             >
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-2 ring-slate-100 group-hover:ring-primary-500 group-hover:ring-4 transition-all shadow-md group-active:scale-95">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden ring-2 ring-border group-hover:ring-action-500 group-hover:ring-4 transition-all shadow-sm group-active:scale-95">
                 <Image
                   src={category.image}
                   alt={category.name}
@@ -129,7 +129,7 @@ export function QuickCategories() {
                   className="object-cover"
                 />
               </div>
-              <span className="text-xs sm:text-sm font-medium text-slate-700 group-hover:text-primary-500 transition-colors text-center whitespace-nowrap">
+              <span className="text-xs sm:text-sm font-medium text-text-primary group-hover:text-action-500 transition-colors text-center whitespace-nowrap">
                 {category.name}
               </span>
             </a>

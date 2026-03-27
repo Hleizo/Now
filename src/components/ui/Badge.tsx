@@ -8,11 +8,13 @@ interface BadgeProps {
 
 export function Badge({ variant, children, className = "" }: BadgeProps) {
   const variants = {
-    sale: "bg-red-500 text-white",
-    new: "bg-emerald-500 text-white",
-    bestseller: "bg-amber-500 text-white",
-    limited: "bg-purple-500 text-white animate-pulse-badge",
-    discount: "bg-primary-500 text-white",
+    // Amber for deals and discounts - attention grabbing
+    sale: "bg-deal-500 text-text-primary font-bold",
+    discount: "bg-deal-500 text-text-primary font-bold",
+    limited: "bg-deal-500 text-text-primary font-bold animate-pulse-deal",
+    // Green for positive states
+    new: "bg-success text-white",
+    bestseller: "bg-action-500 text-white",
   };
 
   return (

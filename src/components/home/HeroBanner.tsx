@@ -53,7 +53,7 @@ export function HeroBanner({ banners }: HeroBannerProps) {
   };
 
   return (
-    <section className="py-4 px-4 sm:px-6" aria-label="Promotional banners">
+    <section className="py-4 px-4 sm:px-6 bg-white" aria-label="Promotional banners">
       <div className="max-w-7xl mx-auto">
         {/* Desktop Layout: Main Banner + Side Banners */}
         <div className="hidden lg:grid lg:grid-cols-3 lg:gap-4">
@@ -78,9 +78,9 @@ export function HeroBanner({ banners }: HeroBannerProps) {
                     className="object-cover"
                     priority={banner.id === "1"}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-navy-500/90 via-navy-500/60 to-transparent" />
                   <div className="absolute inset-0 flex flex-col justify-center p-8 xl:p-12">
-                    <span className="inline-block bg-primary-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-4 w-fit">
+                    <span className="inline-block bg-deal-500 text-text-primary text-xs font-bold px-3 py-1 rounded-full mb-4 w-fit">
                       HOT DEAL
                     </span>
                     <h2 className="text-3xl xl:text-5xl font-extrabold text-white mb-3 max-w-lg">
@@ -90,7 +90,7 @@ export function HeroBanner({ banners }: HeroBannerProps) {
                       <p className="text-lg text-white/90 mb-6 max-w-md">{banner.subtitle}</p>
                     )}
                     {banner.ctaText && (
-                      <Button variant="primary" size="lg" className="w-fit shadow-lg shadow-primary-500/30">
+                      <Button variant="primary" size="lg" className="w-fit shadow-lg">
                         {banner.ctaText}
                       </Button>
                     )}
@@ -105,14 +105,14 @@ export function HeroBanner({ banners }: HeroBannerProps) {
               className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all"
               aria-label="Previous banner"
             >
-              <ChevronLeftIcon className="w-6 h-6 text-slate-700" />
+              <ChevronLeftIcon className="w-6 h-6 text-navy-500" />
             </button>
             <button
               onClick={goToNext}
               className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all"
               aria-label="Next banner"
             >
-              <ChevronRightIcon className="w-6 h-6 text-slate-700" />
+              <ChevronRightIcon className="w-6 h-6 text-navy-500" />
             </button>
 
             {/* Dots */}
@@ -143,9 +143,9 @@ export function HeroBanner({ banners }: HeroBannerProps) {
                 sizes="33vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-500/90 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4">
-                <span className="inline-block bg-red-500 text-white text-xs font-bold px-2 py-1 rounded mb-2">
+                <span className="inline-block bg-deal-500 text-text-primary text-xs font-bold px-2 py-1 rounded mb-2">
                   UP TO 50% OFF
                 </span>
                 <h3 className="text-xl font-bold text-white">Electronics Week</h3>
@@ -162,9 +162,9 @@ export function HeroBanner({ banners }: HeroBannerProps) {
                 sizes="33vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-500/90 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4">
-                <span className="inline-block bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded mb-2">
+                <span className="inline-block bg-success text-white text-xs font-bold px-2 py-1 rounded mb-2">
                   NEW ARRIVALS
                 </span>
                 <h3 className="text-xl font-bold text-white">Fashion Trends</h3>
@@ -196,9 +196,9 @@ export function HeroBanner({ banners }: HeroBannerProps) {
                       className="object-cover"
                       priority={banner.id === "1"}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-navy-500/90 via-navy-500/60 to-transparent" />
                     <div className="absolute inset-0 flex flex-col justify-center p-5 sm:p-8">
-                      <span className="inline-block bg-primary-500 text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full mb-2 w-fit">
+                      <span className="inline-block bg-deal-500 text-text-primary text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full mb-2 w-fit">
                         HOT DEAL
                       </span>
                       <h2 className="text-xl sm:text-3xl font-extrabold text-white mb-1 sm:mb-2">
@@ -248,9 +248,9 @@ export function HeroBanner({ banners }: HeroBannerProps) {
                 sizes="70vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-500/90 to-transparent" />
               <div className="absolute bottom-3 left-3">
-                <span className="inline-block bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-1">
+                <span className="inline-block bg-deal-500 text-text-primary text-[10px] font-bold px-2 py-0.5 rounded mb-1">
                   50% OFF
                 </span>
                 <h3 className="text-sm font-bold text-white">Electronics</h3>
@@ -267,9 +267,9 @@ export function HeroBanner({ banners }: HeroBannerProps) {
                 sizes="70vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-500/90 to-transparent" />
               <div className="absolute bottom-3 left-3">
-                <span className="inline-block bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-1">
+                <span className="inline-block bg-success text-white text-[10px] font-bold px-2 py-0.5 rounded mb-1">
                   NEW
                 </span>
                 <h3 className="text-sm font-bold text-white">Fashion</h3>

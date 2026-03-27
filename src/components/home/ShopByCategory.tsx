@@ -18,7 +18,7 @@ const shopCategories: ShopCategory[] = [
     tagline: "Latest Gadgets",
     image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=600&q=80",
     href: "/electronics",
-    color: "from-blue-600 to-blue-800",
+    color: "from-navy-500 to-navy-600",
   },
   {
     id: "2",
@@ -26,7 +26,7 @@ const shopCategories: ShopCategory[] = [
     tagline: "Office Essentials",
     image: "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?w=600&q=80",
     href: "/stationery",
-    color: "from-amber-500 to-orange-600",
+    color: "from-action-500 to-action-600",
   },
   {
     id: "3",
@@ -34,7 +34,7 @@ const shopCategories: ShopCategory[] = [
     tagline: "Complete Your Look",
     image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&q=80",
     href: "/accessories",
-    color: "from-purple-600 to-purple-800",
+    color: "from-navy-400 to-navy-500",
   },
   {
     id: "4",
@@ -42,7 +42,7 @@ const shopCategories: ShopCategory[] = [
     tagline: "Cozy Comfort",
     image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80",
     href: "/home",
-    color: "from-emerald-600 to-emerald-800",
+    color: "from-action-600 to-action-700",
   },
   {
     id: "5",
@@ -50,7 +50,7 @@ const shopCategories: ShopCategory[] = [
     tagline: "Trending Styles",
     image: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80",
     href: "/fashion",
-    color: "from-pink-500 to-rose-600",
+    color: "from-navy-500 to-action-600",
   },
   {
     id: "6",
@@ -58,19 +58,19 @@ const shopCategories: ShopCategory[] = [
     tagline: "Stay Active",
     image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80",
     href: "/sports",
-    color: "from-slate-700 to-slate-900",
+    color: "from-navy-600 to-navy-700",
   },
 ];
 
 export function ShopByCategory() {
   return (
-    <section className="py-6 sm:py-8 bg-slate-50" aria-label="Shop by category">
+    <section className="py-6 sm:py-8 bg-surface" aria-label="Shop by category">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Shop by Category</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-navy-500">Shop by Category</h2>
           <a
             href="/categories"
-            className="flex items-center gap-1 text-sm font-semibold text-primary-500 hover:text-primary-600 transition-colors group"
+            className="flex items-center gap-1 text-sm font-semibold text-action-500 hover:text-action-600 transition-colors group"
           >
             View All
             <ChevronRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -82,7 +82,7 @@ export function ShopByCategory() {
             <a
               key={category.id}
               href={category.href}
-              className="group relative h-40 sm:h-48 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all"
+              className="group relative h-40 sm:h-48 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all"
             >
               <Image
                 src={category.image}

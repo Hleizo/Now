@@ -30,13 +30,13 @@ export function ProductCard({ product, className = "", variant = "default" }: Pr
 
   return (
     <article
-      className={`product-card bg-white rounded-2xl shadow-card overflow-hidden cursor-pointer group relative ${className}`}
+      className={`product-card bg-card rounded-2xl shadow-card overflow-hidden cursor-pointer group relative border border-border ${className}`}
       role="link"
       tabIndex={0}
       aria-label={`${name}, $${price}`}
     >
       {/* Image Container */}
-      <div className="relative aspect-square bg-slate-50 overflow-hidden">
+      <div className="relative aspect-square bg-surface overflow-hidden">
         <Image
           src={image}
           alt={name}
@@ -46,17 +46,15 @@ export function ProductCard({ product, className = "", variant = "default" }: Pr
           loading="lazy"
         />
         
-        {/* Badges */}
+        {/* Badges - Top Left */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {badge && <Badge variant={badge}>{badge}</Badge>}
         </div>
         
-        {/* Discount Badge - Top Right */}
+        {/* Discount Badge - Amber, Top Right */}
         {discount && (
           <div className="absolute top-2 right-2">
-            <span className={`inline-flex items-center px-2 py-1 rounded-lg text-xs font-bold ${
-              isDeal ? "bg-red-500 text-white" : "bg-primary-500 text-white"
-            }`}>
+            <span className="inline-flex items-center px-2 py-1 rounded-lg text-xs font-bold bg-deal-500 text-text-primary">
               -{discount}%
             </span>
           </div>
@@ -67,12 +65,12 @@ export function ProductCard({ product, className = "", variant = "default" }: Pr
           className={`absolute top-2 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:bg-white ${discount ? "right-14" : "right-2"}`}
           aria-label="Add to wishlist"
         >
-          <HeartIcon className="w-4 h-4 text-slate-600 hover:text-red-500" />
+          <HeartIcon className="w-4 h-4 text-text-secondary hover:text-error" />
         </button>
 
-        {/* Quick Add Button - Shows on hover */}
-        <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
-          <button className="w-full bg-primary-500 hover:bg-primary-600 text-white py-2 rounded-xl text-sm font-semibold flex items-center justify-center gap-1 transition-colors">
+        {/* Quick Add Button - Shows on hover (desktop only) */}
+        <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-navy-500/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
+          <button className="w-full bg-action-500 hover:bg-action-600 text-white py-2 rounded-xl text-sm font-semibold flex items-center justify-center gap-1 transition-colors">
             <PlusIcon className="w-4 h-4" />
             Add to Cart
           </button>
@@ -82,7 +80,7 @@ export function ProductCard({ product, className = "", variant = "default" }: Pr
       {/* Content */}
       <div className="p-3 sm:p-4">
         {/* Product Name */}
-        <h3 className="text-sm sm:text-base font-medium text-slate-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem] group-hover:text-primary-500 transition-colors">
+        <h3 className="text-sm sm:text-base font-medium text-text-primary line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem] group-hover:text-action-500 transition-colors">
           {name}
         </h3>
 
@@ -93,27 +91,27 @@ export function ProductCard({ product, className = "", variant = "default" }: Pr
               <StarIcon
                 key={i}
                 className={`w-3.5 h-3.5 ${
-                  i < Math.floor(rating) ? "text-amber-400 fill-amber-400" : "text-slate-200 fill-slate-200"
+                  i < Math.floor(rating) ? "text-deal-500 fill-deal-500" : "text-border fill-border"
                 }`}
               />
             ))}
           </div>
-          <span className="text-xs text-slate-500">({reviewCount.toLocaleString()})</span>
+          <span className="text-xs text-text-muted">({reviewCount.toLocaleString()})</span>
         </div>
 
-        {/* Price */}
+        {/* Price - Strong hierarchy */}
         <div className="mt-2 flex items-baseline gap-2 flex-wrap">
-          <span className={`text-lg sm:text-xl font-bold ${isDeal ? "text-red-500" : "text-slate-900"}`}>
+          <span className={`text-lg sm:text-xl font-bold ${isDeal ? "text-error" : "text-text-primary"}`}>
             ${price.toFixed(2)}
           </span>
           {originalPrice && (
-            <span className="text-sm text-slate-400 line-through">
+            <span className="text-sm text-text-muted line-through">
               ${originalPrice.toFixed(2)}
             </span>
           )}
-          {discount && (
-            <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
-              Save ${(originalPrice! - price).toFixed(2)}
+          {discount && originalPrice && (
+            <span className="text-xs font-semibold text-success bg-green-50 px-1.5 py-0.5 rounded">
+              Save ${(originalPrice - price).toFixed(2)}
             </span>
           )}
         </div>
@@ -121,21 +119,21 @@ export function ProductCard({ product, className = "", variant = "default" }: Pr
         {/* Delivery Info */}
         <div className="mt-2 flex flex-wrap gap-2">
           {freeDelivery && (
-            <span className="inline-flex items-center gap-1 text-xs text-emerald-600 font-medium bg-emerald-50 px-2 py-1 rounded-full">
+            <span className="inline-flex items-center gap-1 text-xs text-success font-medium bg-green-50 px-2 py-1 rounded-full">
               <TruckIcon className="w-3 h-3" />
               Free Delivery
             </span>
           )}
           {expressDelivery && (
-            <span className="inline-flex items-center gap-1 text-xs text-primary-500 font-medium bg-primary-50 px-2 py-1 rounded-full">
+            <span className="inline-flex items-center gap-1 text-xs text-action-500 font-medium bg-action-50 px-2 py-1 rounded-full">
               <BoltIcon className="w-3 h-3" />
               Express
             </span>
           )}
         </div>
 
-        {/* Mobile Add to Cart Button */}
-        <button className="mt-3 w-full bg-slate-100 hover:bg-primary-500 hover:text-white text-slate-700 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-1 transition-colors md:hidden">
+        {/* Mobile Add to Cart Button - Blue CTA */}
+        <button className="mt-3 w-full bg-action-500 hover:bg-action-600 text-white py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-1 transition-colors md:hidden">
           <PlusIcon className="w-4 h-4" />
           Add to Cart
         </button>
