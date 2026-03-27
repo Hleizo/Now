@@ -14,6 +14,7 @@ export function HeroBanner({ banners }: HeroBannerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
@@ -26,10 +27,15 @@ export function HeroBanner({ banners }: HeroBannerProps) {
   }, [banners.length, isAutoPlaying]);
 
   const goToSlide = useCallback((index: number) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     setCurrentIndex(index);
     setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  }, []);
+    setTimeout(() => {
+      setIsTransitioning(false);
+      setIsAutoPlaying(true);
+    }, 600);
+  }, [isTransitioning]);
 
   const goToPrevious = useCallback(() => {
     goToSlide(currentIndex === 0 ? banners.length - 1 : currentIndex - 1);
@@ -54,7 +60,7 @@ export function HeroBanner({ banners }: HeroBannerProps) {
   };
 
   return (
-    <section className="py-3 sm:py-4 px-3 sm:px-6 bg-white" aria-label="Promotional banners">
+    <section className="py-3 sm:py-4 px-3 sm:px-6 bg-white animate-fade-in" aria-label="Promotional banners">
       <div className="max-w-7xl mx-auto">
         {/* Desktop Layout: Main Banner + Side Banners */}
         <div className="hidden lg:grid lg:grid-cols-3 lg:gap-4">
@@ -66,34 +72,43 @@ export function HeroBanner({ banners }: HeroBannerProps) {
             onTouchEnd={handleTouchEnd}
           >
             <div
-              className="flex h-full transition-transform duration-500 ease-out"
+              className="flex h-full transition-transform duration-500 ease-out will-change-transform"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
-              {banners.map((banner) => (
+              {banners.map((banner, index) => (
                 <div key={banner.id} className="w-full h-full flex-shrink-0 relative">
+                  {/* Skeleton loader */}
+                  {!imagesLoaded[banner.id] && (
+                    <div className="absolute inset-0 skeleton" />
+                  )}
                   <Image
                     src={banner.image}
                     alt={banner.title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 66vw"
-                    className="object-cover"
-                    priority={banner.id === "1"}
+                    className={`object-cover transition-opacity duration-500 ${
+                      imagesLoaded[banner.id] ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    priority={index === 0}
+                    onLoad={() => setImagesLoaded(prev => ({ ...prev, [banner.id]: true }))}
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-navy-500/90 via-navy-500/60 to-transparent" />
                   <div className="absolute inset-0 flex flex-col justify-center p-8 xl:p-12">
-                    <span className="inline-block bg-deal-500 text-text-primary text-xs font-bold px-3 py-1 rounded-full mb-4 w-fit animate-pulse-deal">
-                      HOT DEAL
+                    <span className="inline-block bg-deal-500 text-text-primary text-xs font-bold px-3 py-1 rounded-full mb-4 w-fit animate-shine overflow-hidden">
+                      <span className="relative z-10">HOT DEAL</span>
                     </span>
-                    <h2 className="text-3xl xl:text-5xl font-extrabold text-white mb-3 max-w-lg">
+                    <h2 className="text-3xl xl:text-5xl font-extrabold text-white mb-3 max-w-lg animate-fade-in-up" style={{ animationDelay: '100ms' }}>
                       {banner.title}
                     </h2>
                     {banner.subtitle && (
-                      <p className="text-lg text-white/90 mb-6 max-w-md">{banner.subtitle}</p>
+                      <p className="text-lg text-white/90 mb-6 max-w-md animate-fade-in-up" style={{ animationDelay: '200ms' }}>{banner.subtitle}</p>
                     )}
                     {banner.ctaText && (
-                      <Button variant="primary" size="lg" className="w-fit shadow-lg">
-                        {banner.ctaText}
-                      </Button>
+                      <div className="animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+                        <Button variant="primary" size="lg" className="w-fit shadow-lg hover:shadow-xl transition-shadow">
+                          {banner.ctaText}
+                        </Button>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -103,14 +118,14 @@ export function HeroBanner({ banners }: HeroBannerProps) {
             {/* Navigation Arrows */}
             <button
               onClick={goToPrevious}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all btn-press"
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 btn-press hover:scale-110"
               aria-label="Previous banner"
             >
               <ChevronLeftIcon className="w-6 h-6 text-navy-500" />
             </button>
             <button
               onClick={goToNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all btn-press"
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 btn-press hover:scale-110"
               aria-label="Next banner"
             >
               <ChevronRightIcon className="w-6 h-6 text-navy-500" />
@@ -122,7 +137,7 @@ export function HeroBanner({ banners }: HeroBannerProps) {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`h-2.5 rounded-full transition-all ${
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
                     index === currentIndex ? "w-8 bg-white" : "w-2.5 bg-white/50 hover:bg-white/70"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
@@ -135,18 +150,19 @@ export function HeroBanner({ banners }: HeroBannerProps) {
           <div className="flex flex-col gap-4">
             <a
               href="/electronics"
-              className="flex-1 relative rounded-3xl overflow-hidden group cursor-pointer hover-lift"
+              className="flex-1 relative rounded-3xl overflow-hidden group/side cursor-pointer hover-lift"
             >
+              <div className="absolute inset-0 skeleton" />
               <Image
                 src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80"
                 alt="Electronics Sale"
                 fill
                 sizes="33vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                className="object-cover group-hover/side:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-500/90 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4">
-                <span className="inline-block bg-deal-500 text-text-primary text-xs font-bold px-2 py-1 rounded mb-2">
+                <span className="inline-block bg-deal-500 text-text-primary text-xs font-bold px-2 py-1 rounded mb-2 animate-pulse-deal">
                   UP TO 50% OFF
                 </span>
                 <h3 className="text-xl font-bold text-white">Electronics Week</h3>
@@ -154,14 +170,14 @@ export function HeroBanner({ banners }: HeroBannerProps) {
             </a>
             <a
               href="/fashion"
-              className="flex-1 relative rounded-3xl overflow-hidden group cursor-pointer hover-lift"
+              className="flex-1 relative rounded-3xl overflow-hidden group/side cursor-pointer hover-lift"
             >
               <Image
                 src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80"
                 alt="Fashion Deals"
                 fill
                 sizes="33vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                className="object-cover group-hover/side:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-500/90 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4">
@@ -183,10 +199,10 @@ export function HeroBanner({ banners }: HeroBannerProps) {
             onTouchEnd={handleTouchEnd}
           >
             <div
-              className="flex transition-transform duration-500 ease-out"
+              className="flex transition-transform duration-500 ease-out will-change-transform"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
-              {banners.map((banner) => (
+              {banners.map((banner, index) => (
                 <div key={banner.id} className="w-full flex-shrink-0">
                   {/* Responsive aspect ratio banner */}
                   <div className="relative aspect-[16/10] sm:aspect-[16/9]">
@@ -199,16 +215,16 @@ export function HeroBanner({ banners }: HeroBannerProps) {
                       alt={banner.title}
                       fill
                       sizes="100vw"
-                      className={`object-cover transition-opacity duration-300 ${
+                      className={`object-cover transition-opacity duration-500 ${
                         imagesLoaded[banner.id] ? 'opacity-100' : 'opacity-0'
                       }`}
-                      priority={banner.id === "1"}
+                      priority={index === 0}
                       onLoad={() => setImagesLoaded(prev => ({ ...prev, [banner.id]: true }))}
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-navy-500/90 via-navy-500/60 to-transparent" />
                     <div className="absolute inset-0 flex flex-col justify-center p-4 sm:p-6">
-                      <span className="inline-block bg-deal-500 text-text-primary text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full mb-2 w-fit animate-pulse-deal">
-                        HOT DEAL
+                      <span className="inline-block bg-deal-500 text-text-primary text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full mb-2 w-fit animate-shine overflow-hidden">
+                        <span className="relative z-10">HOT DEAL</span>
                       </span>
                       <h2 className="text-lg sm:text-2xl font-extrabold text-white mb-1 sm:mb-2 leading-tight">
                         {banner.title}
@@ -235,7 +251,7 @@ export function HeroBanner({ banners }: HeroBannerProps) {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`rounded-full transition-all touch-target ${
+                  className={`rounded-full transition-all duration-300 touch-target ${
                     index === currentIndex 
                       ? "w-5 sm:w-6 h-1.5 sm:h-2 bg-white" 
                       : "w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white/50"
@@ -251,18 +267,18 @@ export function HeroBanner({ banners }: HeroBannerProps) {
           <div className="flex gap-2.5 mt-2.5 sm:mt-3 overflow-x-auto scrollbar-hide snap-x smooth-scroll pb-1">
             <a
               href="/electronics"
-              className="flex-shrink-0 snap-start w-[65%] sm:w-[48%] relative aspect-[16/9] rounded-xl overflow-hidden tap-feedback"
+              className="flex-shrink-0 snap-start w-[65%] sm:w-[48%] relative aspect-[16/9] rounded-xl overflow-hidden tap-feedback group"
             >
               <Image
                 src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&q=80"
                 alt="Electronics"
                 fill
                 sizes="65vw"
-                className="object-cover"
+                className="object-cover group-active:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-500/90 to-transparent" />
               <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3">
-                <span className="inline-block bg-deal-500 text-text-primary text-[10px] font-bold px-1.5 py-0.5 rounded mb-1">
+                <span className="inline-block bg-deal-500 text-text-primary text-[10px] font-bold px-1.5 py-0.5 rounded mb-1 animate-pulse-deal">
                   50% OFF
                 </span>
                 <h3 className="text-xs sm:text-sm font-bold text-white">Electronics</h3>
@@ -270,14 +286,14 @@ export function HeroBanner({ banners }: HeroBannerProps) {
             </a>
             <a
               href="/fashion"
-              className="flex-shrink-0 snap-start w-[65%] sm:w-[48%] relative aspect-[16/9] rounded-xl overflow-hidden tap-feedback"
+              className="flex-shrink-0 snap-start w-[65%] sm:w-[48%] relative aspect-[16/9] rounded-xl overflow-hidden tap-feedback group"
             >
               <Image
                 src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=80"
                 alt="Fashion"
                 fill
                 sizes="65vw"
-                className="object-cover"
+                className="object-cover group-active:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-500/90 to-transparent" />
               <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3">

@@ -68,7 +68,7 @@ export function ShopByCategory() {
   const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
 
   return (
-    <section className="py-4 sm:py-6 lg:py-8 bg-surface" aria-label="Shop by category">
+    <section className="py-4 sm:py-6 lg:py-8 bg-surface animate-fade-in" aria-label="Shop by category">
       <div className="max-w-7xl mx-auto px-3 sm:px-6">
         <div className="mb-3 sm:mb-4 lg:mb-6 flex items-center justify-between">
           <h2 className="text-base sm:text-xl lg:text-2xl font-bold text-navy-500">Shop by Category</h2>
@@ -81,12 +81,12 @@ export function ShopByCategory() {
           </a>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 lg:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 lg:gap-4 stagger-children">
           {shopCategories.map((category) => (
             <a
               key={category.id}
               href={category.href}
-              className="group relative aspect-[4/5] sm:h-44 lg:h-48 rounded-xl sm:rounded-2xl overflow-hidden shadow-card tap-feedback"
+              className="group relative aspect-[4/5] sm:h-44 lg:h-48 rounded-xl sm:rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 tap-feedback hover-lift"
             >
               {/* Loading skeleton */}
               {!imagesLoaded[category.id] && (
@@ -98,15 +98,15 @@ export function ShopByCategory() {
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
                 className={`object-cover transition-all duration-500 ${
-                  imagesLoaded[category.id] ? 'opacity-100' : 'opacity-0'
+                  imagesLoaded[category.id] ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
                 } group-hover:scale-110`}
                 onLoad={() => setImagesLoaded(prev => ({ ...prev, [category.id]: true }))}
                 loading="lazy"
               />
-              <div className={`absolute inset-0 bg-gradient-to-t ${category.color} opacity-70 group-hover:opacity-80 transition-opacity`} />
+              <div className={`absolute inset-0 bg-gradient-to-t ${category.color} opacity-70 group-hover:opacity-80 transition-opacity duration-300`} />
               <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4">
-                <h3 className="text-white font-bold text-sm sm:text-base lg:text-lg leading-tight">{category.name}</h3>
-                <p className="text-white/80 text-[10px] sm:text-xs lg:text-sm">{category.tagline}</p>
+                <h3 className="text-white font-bold text-sm sm:text-base lg:text-lg leading-tight group-hover:translate-y-[-2px] transition-transform duration-300">{category.name}</h3>
+                <p className="text-white/80 text-[10px] sm:text-xs lg:text-sm group-hover:text-white transition-colors duration-300">{category.tagline}</p>
               </div>
             </a>
           ))}

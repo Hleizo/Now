@@ -1,13 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SearchIcon, CartIcon, HeartIcon, UserIcon, MapPinIcon } from "@/components/icons/Icons";
 
 export function Header() {
   const [searchFocused, setSearchFocused] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm safe-top">
+    <header className={`sticky top-0 z-50 bg-white safe-top transition-shadow duration-300 ${
+      isScrolled ? 'header-elevated' : 'shadow-sm'
+    }`}>
       {/* Desktop Header */}
       <div className="hidden md:block">
         {/* Top Bar - Navy background for trust */}
@@ -31,8 +42,8 @@ export function Header() {
         {/* Main Header - White with navy text */}
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center gap-8">
           {/* Logo - Navy brand color */}
-          <a href="/" className="flex items-center gap-2 flex-shrink-0 hover:opacity-90 transition-opacity">
-            <div className="w-12 h-12 bg-navy-500 rounded-2xl flex items-center justify-center shadow-md">
+          <a href="/" className="flex items-center gap-2 flex-shrink-0 hover:opacity-90 transition-opacity group">
+            <div className="w-12 h-12 bg-navy-500 rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
               <span className="text-white font-extrabold text-2xl">N</span>
             </div>
             <span className="text-2xl font-extrabold text-navy-500">Now</span>
@@ -48,7 +59,7 @@ export function Header() {
                 className="w-full pl-12 pr-32 py-3.5 bg-surface rounded-2xl border-2 border-border focus:border-action-500 focus:bg-white focus:outline-none transition-all text-base text-text-primary placeholder:text-text-muted"
                 aria-label="Search products"
               />
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-action-500 hover:bg-action-600 text-white px-6 py-2 rounded-xl font-semibold transition-colors btn-press">
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-action-500 hover:bg-action-600 text-white px-6 py-2 rounded-xl font-semibold transition-all btn-press shadow-sm hover:shadow-md">
                 Search
               </button>
             </div>
@@ -65,23 +76,23 @@ export function Header() {
             </a>
             <a
               href="/wishlist"
-              className="flex flex-col items-center p-3 rounded-xl hover:bg-surface transition-colors relative"
+              className="flex flex-col items-center p-3 rounded-xl hover:bg-surface transition-colors relative group"
               aria-label="Wishlist with 5 items"
             >
-              <HeartIcon className="w-6 h-6 text-navy-500" />
+              <HeartIcon className="w-6 h-6 text-navy-500 group-hover:text-action-500 transition-colors" />
               <span className="text-xs text-text-secondary mt-1">Wishlist</span>
-              <span className="absolute top-1 right-1 w-5 h-5 bg-action-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+              <span className="absolute top-1 right-1 w-5 h-5 bg-action-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-scale-in">
                 5
               </span>
             </a>
             <a
               href="/cart"
-              className="flex flex-col items-center p-3 rounded-xl hover:bg-surface transition-colors relative"
+              className="flex flex-col items-center p-3 rounded-xl hover:bg-surface transition-colors relative group"
               aria-label="Cart with 3 items"
             >
-              <CartIcon className="w-6 h-6 text-navy-500" />
+              <CartIcon className="w-6 h-6 text-navy-500 group-hover:text-action-500 transition-colors" />
               <span className="text-xs text-text-secondary mt-1">Cart</span>
-              <span className="absolute top-1 right-1 w-5 h-5 bg-deal-500 text-navy-500 text-[10px] font-bold rounded-full flex items-center justify-center">
+              <span className="absolute top-1 right-1 w-5 h-5 bg-deal-500 text-navy-500 text-[10px] font-bold rounded-full flex items-center justify-center animate-scale-in">
                 3
               </span>
             </a>

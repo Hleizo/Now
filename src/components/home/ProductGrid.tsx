@@ -39,11 +39,11 @@ export function ProductGrid({
   return (
     <section className={`py-5 sm:py-6 lg:py-8 ${isDeal ? "bg-gradient-to-b from-amber-50/50 to-white" : ""}`} aria-label={title}>
       {/* Header - More impactful */}
-      <div className="px-3 sm:px-6 mb-4 sm:mb-5 lg:mb-6 max-w-7xl mx-auto">
+      <div className="px-3 sm:px-6 mb-4 sm:mb-5 lg:mb-6 max-w-7xl mx-auto animate-fade-in">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
             {isDeal && (
-              <div className="flex items-center gap-1.5 bg-gradient-to-r from-deal-500 to-amber-400 text-navy-900 text-xs sm:text-sm font-extrabold px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl shadow-lg animate-pulse">
+              <div className="flex items-center gap-1.5 bg-gradient-to-r from-deal-500 to-amber-400 text-navy-900 text-xs sm:text-sm font-extrabold px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl shadow-lg animate-bounce-subtle">
                 <FireIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span>HOT DEALS</span>
               </div>
@@ -64,14 +64,14 @@ export function ProductGrid({
               <div className="hidden md:flex items-center gap-1.5">
                 <button
                   onClick={() => scroll("left")}
-                  className="w-8 h-8 lg:w-9 lg:h-9 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center transition-all shadow-md border border-gray-100 active:scale-95"
+                  className="w-8 h-8 lg:w-9 lg:h-9 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center transition-all shadow-md border border-gray-100 btn-press hover:shadow-lg"
                   aria-label="Scroll left"
                 >
                   <ChevronLeftIcon className="w-4 h-4 lg:w-5 lg:h-5 text-gray-600" />
                 </button>
                 <button
                   onClick={() => scroll("right")}
-                  className="w-8 h-8 lg:w-9 lg:h-9 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center transition-all shadow-md border border-gray-100 active:scale-95"
+                  className="w-8 h-8 lg:w-9 lg:h-9 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center transition-all shadow-md border border-gray-100 btn-press hover:shadow-lg"
                   aria-label="Scroll right"
                 >
                   <ChevronRightIcon className="w-4 h-4 lg:w-5 lg:h-5 text-gray-600" />
@@ -82,9 +82,9 @@ export function ProductGrid({
             {viewAllHref && (
               <a
                 href={viewAllHref}
-                className={`flex items-center gap-0.5 sm:gap-1 text-xs sm:text-sm font-semibold px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg transition-all ${
+                className={`flex items-center gap-0.5 sm:gap-1 text-xs sm:text-sm font-semibold px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg transition-all btn-press ${
                   isDeal 
-                    ? "bg-deal-500 text-navy-900 hover:bg-deal-600 shadow-sm" 
+                    ? "bg-deal-500 text-navy-900 hover:bg-deal-600 shadow-sm hover:shadow-md" 
                     : "text-action-500 hover:bg-action-50"
                 }`}
               >
@@ -105,10 +105,11 @@ export function ProductGrid({
             className="flex gap-3 sm:gap-4 lg:gap-5 px-3 sm:px-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 smooth-scroll"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
-            {products.map((product) => (
+            {products.map((product, index) => (
               <div 
                 key={product.id} 
-                className="flex-shrink-0 w-[46%] sm:w-[220px] lg:w-[250px] snap-start"
+                className="flex-shrink-0 w-[46%] sm:w-[220px] lg:w-[250px] snap-start animate-fade-in-up"
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 <ProductCard product={product} variant={variant} />
               </div>
@@ -117,9 +118,9 @@ export function ProductGrid({
             <div className="w-3 sm:w-6 flex-shrink-0" aria-hidden="true" />
           </div>
         ) : (
-          // Standard grid
+          // Standard grid with stagger animation
           <div className="px-3 sm:px-6">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-5 stagger-children">
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} variant={variant} />
               ))}
