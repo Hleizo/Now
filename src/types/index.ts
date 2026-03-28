@@ -1,4 +1,9 @@
-// Product Types
+// =============================================================================
+// PRODUCT TYPES
+// =============================================================================
+
+export type ProductBadge = "sale" | "new" | "bestseller" | "limited";
+
 export interface Product {
   id: string;
   name: string;
@@ -7,22 +12,46 @@ export interface Product {
   image: string;
   rating: number;
   reviewCount: number;
-  badge?: "sale" | "new" | "bestseller" | "limited";
+  badge?: ProductBadge;
   discount?: number;
   freeDelivery?: boolean;
   expressDelivery?: boolean;
+  inStock?: boolean;
 }
 
-// Category Types
+// =============================================================================
+// CATEGORY TYPES
+// =============================================================================
+
 export interface Category {
   id: string;
   name: string;
   icon: string;
+  image?: string;
   color: string;
   href: string;
 }
 
-// Banner Types
+export interface QuickCategory {
+  id: string;
+  name: string;
+  image: string;
+  href: string;
+}
+
+export interface ShopCategory {
+  id: string;
+  name: string;
+  tagline: string;
+  image: string;
+  href: string;
+  gradient: string;
+}
+
+// =============================================================================
+// BANNER TYPES
+// =============================================================================
+
 export interface Banner {
   id: string;
   title: string;
@@ -30,34 +59,69 @@ export interface Banner {
   image: string;
   ctaText?: string;
   ctaHref?: string;
-  bgColor: string;
-  textColor: string;
+  badgeText?: string;
 }
 
-// Flash Deal Types
-export interface FlashDeal {
+export interface PromoBanner {
   id: string;
-  product: Product;
-  endTime: Date;
-  soldCount: number;
-  totalStock: number;
+  title: string;
+  badgeText: string;
+  badgeVariant: "deal" | "new";
+  image: string;
+  href: string;
 }
 
-// Navigation Types
+// =============================================================================
+// NAVIGATION TYPES
+// =============================================================================
+
 export interface NavItem {
   id: string;
   label: string;
-  icon: string;
   href: string;
-  isActive?: boolean;
+  badge?: number;
+  badgeVariant?: "action" | "deal";
 }
 
-// Promo Section Types
-export interface PromoCard {
-  id: string;
+// =============================================================================
+// SECTION TYPES
+// =============================================================================
+
+export interface ProductSectionProps {
+  products: Product[];
   title: string;
-  subtitle: string;
-  image: string;
-  bgColor: string;
-  href: string;
+  subtitle?: string;
+  viewAllHref?: string;
+  variant?: "default" | "deal";
+  layout?: "grid" | "carousel";
 }
+
+export interface TrustBadge {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+  colorClass: string;
+  bgClass: string;
+  borderClass: string;
+}
+
+// =============================================================================
+// API RESPONSE TYPES (for future backend integration)
+// =============================================================================
+
+export interface ApiResponse<T> {
+  data: T;
+  success: boolean;
+  message?: string;
+  pagination?: {
+    page: number;
+    limit: number;
+    total: number;
+    hasMore: boolean;
+  };
+}
+
+export interface ProductsResponse extends ApiResponse<Product[]> {}
+export interface CategoriesResponse extends ApiResponse<Category[]> {}
+export interface BannersResponse extends ApiResponse<Banner[]> {}

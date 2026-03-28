@@ -1,22 +1,23 @@
 import type { Metadata, Viewport } from "next";
+import { StoreProvider } from "@/components/providers/StoreProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Now - Jordan's Smart Marketplace",
-  description: "Shop smarter with Now. Jordan's trusted marketplace for electronics, fashion, home goods, and more. Fast delivery, great prices, amazing deals.",
-  keywords: ["ecommerce", "online shopping", "Jordan", "marketplace", "electronics", "fashion", "deals", "free delivery"],
+  title: "Now - Jordan Electronics & School Supplies",
+  description: "Now is Jordan's local marketplace for electronics, accessories, and premium school supplies with fast local delivery.",
+  keywords: ["Jordan", "electronics", "school supplies", "stationery", "marketplace", "Amman"],
   authors: [{ name: "Now" }],
   openGraph: {
-    title: "Now - Jordan's Smart Marketplace",
-    description: "Shop smarter with Now. Jordan's trusted marketplace for everything you need.",
+    title: "Now - Jordan Electronics & School Supplies",
+    description: "Premium local shopping experience for electronics and school essentials in Jordan.",
     type: "website",
     locale: "en_US",
     siteName: "Now",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Now - Jordan's Smart Marketplace",
-    description: "Shop smarter with Now. Jordan's trusted marketplace for everything you need.",
+    title: "Now - Jordan Electronics & School Supplies",
+    description: "Premium local shopping experience for electronics and school essentials in Jordan.",
   },
   robots: {
     index: true,
@@ -47,7 +48,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
       <body className="antialiased min-h-screen bg-surface text-text-primary">
-        {children}
+        <StoreProvider>{children}</StoreProvider>
       </body>
     </html>
   );

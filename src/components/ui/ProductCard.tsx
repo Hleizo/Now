@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Product } from "@/types";
 import { StarIcon, TruckIcon, PlusIcon, HeartIcon } from "@/components/icons/Icons";
 
@@ -14,6 +15,7 @@ interface ProductCardProps {
 export function ProductCard({ product, className = "", variant = "default" }: ProductCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const router = useRouter();
   
   const {
     name,
@@ -29,9 +31,17 @@ export function ProductCard({ product, className = "", variant = "default" }: Pr
 
   const isDeal = variant === "deal";
   const savings = originalPrice ? (originalPrice - price).toFixed(2) : null;
+  const productHref = `/products/${product.id}`;
 
   return (
     <article
+      onClick={() => router.push(productHref)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          router.push(productHref);
+        }
+      }}
       className={`group relative bg-white rounded-2xl overflow-hidden cursor-pointer will-change-transform ${
         isDeal 
           ? "ring-2 ring-deal-500/30 shadow-[0_4px_20px_rgba(245,158,11,0.15)]" 
@@ -162,6 +172,9 @@ export function ProductCard({ product, className = "", variant = "default" }: Pr
 
         {/* Add to Cart Button - Strong CTA */}
         <button 
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
           className={`w-full py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 sm:gap-2 transition-all duration-200 btn-press ${
             isDeal
               ? "bg-gradient-to-r from-deal-500 to-amber-400 text-navy-900 hover:from-deal-600 hover:to-amber-500 shadow-[0_4px_14px_rgba(245,158,11,0.25)] hover:shadow-[0_6px_20px_rgba(245,158,11,0.35)]"
