@@ -71,6 +71,15 @@ export interface PromoBanner {
   href: string;
 }
 
+export interface PromoCard {
+  id: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  href: string;
+  bgColor: string;
+}
+
 // =============================================================================
 // NAVIGATION TYPES
 // =============================================================================
@@ -104,6 +113,14 @@ export interface TrustBadge {
   colorClass: string;
   bgClass: string;
   borderClass: string;
+}
+
+export interface FlashDeal {
+  id: string;
+  product: Product;
+  soldCount: number;
+  totalStock: number;
+  endTime: Date;
 }
 
 // =============================================================================
